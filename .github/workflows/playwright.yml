@@ -1,0 +1,41 @@
+name: Playwright showcase
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      CI: true
+      BASE_URL: https://thayrinesouza.com
+    steps:
+      - name: Check out test code
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Lint and typecheck
+        run: npm run check
+      - name: Run public portfolio tests
+        run: npm test
+      # No screenshots, traces, videos, PDF files or reports are uploaded.

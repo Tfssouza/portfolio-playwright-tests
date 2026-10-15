@@ -1,0 +1,23 @@
+{
+  "name": "portfolio-playwright-tests",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Independent public-facing Playwright showcase for a personal QA portfolio.",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run lint && npm run typecheck"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@types/node": "22.20.5",
+    "eslint": "10.12.0",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.71.2"
+  }
+}
